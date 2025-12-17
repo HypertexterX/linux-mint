@@ -4,8 +4,22 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 # Packages
 sudo apt update
 sudo apt install tmux git jq redshift ttyd xsel tree python3 python3-pip python3-venv
+
+# Basic Dev setup
+GIT_DIR="$HOME/github"
+mkdir -p "$HOME/github"
+
 # ESP32 Dev
 sudo apt install wget flex bison gperf cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+if [[ ! -d "$GIT_DIR/esp-id" ]]; then
+  git clone https://github.com/espressif/esp-idf.git "$GIT_DIR/esp-id"
+  cd ~/esp/esp-idf
+  ./install.sh esp32
+  cd $DIR
+fi
+curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
 
 # NodeJS
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
