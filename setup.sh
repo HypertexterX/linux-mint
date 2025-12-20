@@ -111,6 +111,20 @@ else
   echo "Cannot check for models because Ollama is not installed."
 fi
 
+# SSH and Firewall Setup
+sudo apt install -y openssh-server ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw limit ssh
+sudo ufw --force enable
+
+# Laptop detection: Disable SSH auto-start if battery exists
+if [ -d /sys/class/power_supply/BAT0 ]; then
+  sudo systemctl disable ssh
+else
+  sudo systemctl enable ssh
+fi
+
 # Services
 systemctl --user enable --now redshift.service
 sudo systemctl disable --now ttyd
