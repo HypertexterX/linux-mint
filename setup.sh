@@ -117,13 +117,7 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw limit ssh
 sudo ufw --force enable
-
-# Laptop detection: Disable SSH auto-start if battery exists
-if [ -d /sys/class/power_supply/BAT0 ]; then
-  sudo systemctl disable ssh
-else
-  sudo systemctl enable ssh
-fi
+sudo systemctl enable ssh
 
 # Services
 systemctl --user enable --now redshift.service
