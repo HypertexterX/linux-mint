@@ -111,6 +111,25 @@ else
   echo "Cannot check for models because Ollama is not installed."
 fi
 
+# Install Steam
+if ! command -v steam >/dev/null 2>&1; then
+  echo "Steam not found. Installing..."
+  
+  # 1. Enable 32-bit architecture
+  sudo dpkg --add-architecture i386
+  sudo apt update
+
+  # 2. Install the 32-bit Nvidia libraries 
+  # This command automatically detects your current driver version and installs the i386 matching libs
+  sudo apt install -y libnvidia-gl-$(nvidia-smi --query-gpu=driver_version --format=csv,noheader,nounits | cut -d. -f1):i386
+
+  # 3. Install Steam
+  # Using DEBIAN_FRONTEND=noninteractive helps skip some TUI prompts
+  sudo DEBIAN_FRONTEND=noninteractive apt install -y steam
+else
+  echo "Steam is already installed."
+fi
+
 # SSH and Firewall Setup
 sudo apt install -y openssh-server ufw
 sudo ufw default deny incoming
