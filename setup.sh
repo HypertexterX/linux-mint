@@ -3,7 +3,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Packages
 sudo apt update
-sudo apt install tmux git jq redshift ttyd xsel tree python3 python3-pip python3-venv
+sudo apt install tmux git jq redshift ttyd xsel tree python3 python3-pip python3-venv ripgrep
 
 # Basic Dev setup
 GIT_DIR="$HOME/github"

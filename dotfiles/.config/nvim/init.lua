@@ -1,3 +1,7 @@
+-- Set leader key to comma
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+
 -- Standard settings
 vim.opt.relativenumber = true
 vim.opt.wrap = true
@@ -82,6 +86,10 @@ local mappings = {
     [',hey'] = { ':%w !hey --more --prompt \'<CR>', 'Prompt hey with current buffer' },
     ['<Find>'] = { '<Home>', 'Move to beginning of line (Normal)' },
     ['<Select>'] = { '<End>', 'Move to end of line (Normal)' },
+    ['<C-p>'] = { "<cmd>Telescope find_files<CR>", 'Find Files' },
+    ['<C-S-P>'] = { "<cmd>Telescope live_grep<CR>", 'Global Search' }, -- Ctrl+Shift+P
+    ['<leader>f'] = { "<cmd>Telescope find_files<CR>", 'Find Files (Space f f)' },
+    ['<leader>g'] = { "<cmd>Telescope live_grep<CR>", 'Live Grep (Space f g)' },    
   },
   i = {
     ['jj'] = { '<Esc>', 'Exit insert mode' },
