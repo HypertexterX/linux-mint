@@ -3,7 +3,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Packages
 sudo apt update
-sudo apt install tmux git jq redshift ttyd xsel tree python3 python3-pip python3-venv ripgrep
+sudo apt install tmux git jq redshift ttyd xsel tree python3 python3-pip python3-venv python-is-python3 ripgrep
 
 # Basic Dev setup
 GIT_DIR="$HOME/github"
@@ -76,6 +76,32 @@ if ! command -v espanso >/dev/null 2>&1; then
   espanso start
 fi
 
+# Install Emote (Emoji Picker) via Flatpak
+if ! command -v flatpak >/dev/null 2>&1; then
+  echo "Flatpak not found. Installing..."
+  sudo apt install -y flatpak
+fi
+
+# Add Flathub remote if it doesn't exist
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Install Emote non-interactively
+# -y: automatically answer yes
+flatpak install -y flathub com.tomjwatson.Emote
+
+# Install Emote (Emoji Picker) via Flatpak
+if ! command -v flatpak >/dev/null 2>&1; then
+  echo "Flatpak not found. Installing..."
+  sudo apt install -y flatpak
+fi
+
+# Add Flathub remote if it doesn't exist
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Install Emote non-interactively
+# -y: automatically answer yes
+flatpak install -y flathub com.tomjwatson.Emote
+
 # Install Ollama if it doesn't exist
 if ! command -v ollama >/dev/null 2>&1; then
   echo "Ollama not found. Installing..."
@@ -130,14 +156,3 @@ else
   echo "Steam is already installed."
 fi
 
-# SSH and Firewall Setup
-sudo apt install -y openssh-server ufw
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw limit ssh
-sudo ufw --force enable
-sudo systemctl enable ssh
-
-# Services
-systemctl --user enable --now redshift.service
-sudo systemctl disable --now ttyd
