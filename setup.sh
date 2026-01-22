@@ -89,19 +89,6 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 # -y: automatically answer yes
 flatpak install -y flathub com.tomjwatson.Emote
 
-# Install Emote (Emoji Picker) via Flatpak
-if ! command -v flatpak >/dev/null 2>&1; then
-  echo "Flatpak not found. Installing..."
-  sudo apt install -y flatpak
-fi
-
-# Add Flathub remote if it doesn't exist
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
-# Install Emote non-interactively
-# -y: automatically answer yes
-flatpak install -y flathub com.tomjwatson.Emote
-
 # Install Ollama if it doesn't exist
 if ! command -v ollama >/dev/null 2>&1; then
   echo "Ollama not found. Installing..."
